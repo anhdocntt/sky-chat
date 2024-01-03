@@ -2,13 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase/config";
 import React, { useEffect, useState } from "react";
 import { Spin } from "antd";
-
-interface User {
-  displayName?: string | null;
-  email?: string | null;
-  uid?: string;
-  photoURL?: string | null;
-}
+import { User } from "../interfaces/User";
 
 interface AuthProviderProps {
   children: React.ReactNode;
@@ -22,7 +16,7 @@ export const AuthContext = React.createContext<AuthContextProps>({ user: {} });
 
 export default function AuthProvider(props: AuthProviderProps) {
   const [user, setUser] = useState<User>({});
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,10 +27,11 @@ export default function AuthProvider(props: AuthProviderProps) {
         setUser({ displayName, uid, email, photoURL });
         setIsLoading(false);
         navigate("/");
+        return;
       }
-      else {
-        navigate("login");
-      }
+
+      setIsLoading(false);
+      navigate("login");
     });
 
     return () => {
