@@ -21,7 +21,6 @@ export default function AuthProvider(props: AuthProviderProps) {
 
   useEffect(() => {
     const user = auth.onAuthStateChanged((user) => {
-      console.log({user})
       if (user) {
         const { displayName, uid, email, photoURL } = user;
         setUser({ displayName, uid, email, photoURL });

@@ -7,7 +7,11 @@ import "./RoomList.css";
 const { Panel } = Collapse;
 
 export default function RoomList() {
-  const { rooms, setIsAddRoomVisible } = useContext(AppContext);
+  const { rooms, setIsAddRoomVisible, setSelectedRoomId } = useContext(AppContext);
+
+  const handleRoomClick = (roomId: string | undefined) => {
+    roomId && setSelectedRoomId(roomId);
+  };
 
   const handleOpenAddRoomModal = () => {
     setIsAddRoomVisible(true);
@@ -18,7 +22,12 @@ export default function RoomList() {
       <Panel key={"listRooms"} header={"List of chat rooms"}>
         {rooms.map(room => {
           return (
-            <Typography.Link key={room.id}>{room.name}</Typography.Link>
+            <Typography.Link
+              key={room.id}
+              onClick={() => handleRoomClick(room.id)}
+            >
+              {room.name}
+            </Typography.Link>
           )
         })}
         <Button type='text' icon={<PlusSquareOutlined />} onClick={handleOpenAddRoomModal}>Add room</Button>

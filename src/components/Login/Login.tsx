@@ -2,7 +2,7 @@ import { Row, Col, Button } from "antd";
 import "./Login.css";
 import firebase from "firebase/app";
 import { auth, db } from "../../firebase/config";
-import { addDocument } from "../../firebase/service";
+import { addDocument, generateKeywords } from "../../firebase/service";
 import { collection } from "../../firebase/collection";
 import { User } from "../../interfaces/User";
 
@@ -19,6 +19,7 @@ export default function Login() {
         email: user?.email,
         photoURL: user?.photoURL,
         providerId: additionalUserInfo.providerId,
+        keywords: generateKeywords(user?.displayName),
       }
       addDocument(collection.users, userData);
     }
