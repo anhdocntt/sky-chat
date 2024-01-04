@@ -1,10 +1,9 @@
-import { Avatar, Form, Modal, Select, Spin } from 'antd';
-import { debounce } from 'lodash';
-import React, { useContext, useState } from 'react';
-import { AppContext } from '../../Context/AppProvider';
-import { collection } from '../../firebase/collection';
-import { db } from '../../firebase/config';
-import "./InviteMemberModal.css";
+import { Avatar, Form, Modal, Select, Spin } from "antd";
+import { debounce } from "lodash";
+import React, { useContext, useState } from "react";
+import { AppContext } from "../../Context/AppProvider";
+import { collection } from "../../firebase/collection";
+import { db } from "../../firebase/config";
 
 interface Option {
   value: string;
@@ -13,7 +12,10 @@ interface Option {
 }
 
 interface DebounceSelectProps {
-  fetchOptions: (value: string, curMembers: (string | undefined)[]) => Promise<Option[]>;
+  fetchOptions: (
+    value: string,
+    curMembers: (string | undefined)[]
+  ) => Promise<Option[]>;
   debounceTimeout?: number;
   curMembers: (string | undefined)[];
   [key: string]: any;
@@ -53,20 +55,20 @@ const DebounceSelect: React.FC<DebounceSelectProps> = ({
       labelInValue
       filterOption={false}
       onSearch={debounceFetcher}
-      notFoundContent={fetching ? <Spin size='small' /> : null}
+      notFoundContent={fetching ? <Spin size="small" /> : null}
       {...props}
     >
       {options.map((opt) => (
         <Select.Option key={opt.value} value={opt.value} title={opt.label}>
-          <Avatar size='small' src={opt.photoURL}>
-            {opt.photoURL ? '' : opt.label?.charAt(0)?.toUpperCase()}
+          <Avatar size="small" src={opt.photoURL}>
+            {opt.photoURL ? "" : opt.label?.charAt(0)?.toUpperCase()}
           </Avatar>
           {` ${opt.label}`}
         </Select.Option>
       ))}
     </Select>
   );
-}
+};
 
 export default function InviteMemberModal() {
   const {
@@ -79,10 +81,13 @@ export default function InviteMemberModal() {
   const [value, setValue] = useState<any[]>([]);
   const [form] = Form.useForm();
 
-  const fetchUserList = async (search: string, curMembers: (string | undefined)[]) => {
+  const fetchUserList = async (
+    search: string,
+    curMembers: (string | undefined)[]
+  ) => {
     return db
       .collection(collection.users)
-      .where('keywords', 'array-contains', search.toLowerCase())
+      .where("keywords", "array-contains", search.toLowerCase())
       .limit(20)
       .get()
       .then((snapshot) => {
@@ -92,7 +97,7 @@ export default function InviteMemberModal() {
             value: doc.data()?.uid,
             photoURL: doc.data()?.photoURL,
           }))
-          .filter((opt) => !curMembers.includes(opt.value))
+          .filter((opt) => !curMembers.includes(opt.value));
       });
   };
 
@@ -101,8 +106,8 @@ export default function InviteMemberModal() {
 
     const roomRef = db.collection(collection.rooms).doc(selectedRoomId);
     roomRef.update({
-      members: [...selectedRoom.members, ...value.map(val => val.value)]
-    })
+      members: [...selectedRoom.members, ...value.map((val) => val.value)],
+    });
 
     setValue([]);
     form.resetFields();
@@ -123,21 +128,20 @@ export default function InviteMemberModal() {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <Form form={form} layout='vertical'>
+        <Form form={form} layout="vertical">
           <Form.Item name="search-user">
             <DebounceSelect
               fetchOptions={fetchUserList}
               curMembers={selectedRoom?.members || []}
-              mode='multiple'
-              label='Members name'
-              placeholder='Type member name'
-              style={{ width: '100%' }}
+              mode="multiple"
+              label="Members name"
+              placeholder="Type member name"
+              style={{ width: "100%" }}
               onChange={(newValue: any[]) => setValue(newValue)}
             />
           </Form.Item>
         </Form>
       </Modal>
     </div>
-  )
+  );
 }
-

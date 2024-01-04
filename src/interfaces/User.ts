@@ -5,5 +5,6 @@ export interface User {
   uid?: string;
   photoURL?: string | null;
   keywords?: string[];
-  providerId?: string,
+  providerId?: string;
+  createdAt?: any;
 }

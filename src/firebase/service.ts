@@ -7,13 +7,13 @@ export const addDocument = (collection: string, data: any) => {
   query.add({
     ...data,
     createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-  })
+  });
 };
 
 export const generateKeywords = (displayName: string | null | undefined) => {
   if (!displayName) return [];
 
-  const name = displayName.split(' ').filter((word) => word);
+  const name = displayName.split(" ").filter((word) => word);
 
   const length = name.length;
   let flagArray: boolean[] = [];
@@ -26,8 +26,8 @@ export const generateKeywords = (displayName: string | null | undefined) => {
 
   const createKeywords = (name: string) => {
     const arrName: string[] = [];
-    let curName = '';
-    name.split('').forEach((letter) => {
+    let curName = "";
+    name.split("").forEach((letter) => {
       curName += letter.toLowerCase();
       arrName.push(curName);
     });
@@ -41,7 +41,7 @@ export const generateKeywords = (displayName: string | null | undefined) => {
         result[k] = name[i];
 
         if (k === length - 1) {
-          stringArray.push(result.join(' '));
+          stringArray.push(result.join(" "));
         }
 
         findPermutation(k + 1);

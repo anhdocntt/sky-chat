@@ -3,4 +3,5 @@ export interface Room {
   name: string;
   desc: string;
   members: (string | undefined)[];
+  createdAt?: any;
 }

@@ -1,12 +1,11 @@
-import React from 'react';
-import './App.css';
-import Login from '../components/Login/Login';
-import { Routes, Route, BrowserRouter } from "react-router-dom";
-import ChatRoom from '../components/ChatRoom/ChatRoom';
-import AuthProvider from '../Context/AuthProvider';
-import AppProvider from '../Context/AppProvider';
-import AddRoomModal from '../components/Modals/AddRoomModal';
-import InviteMemberModal from '../components/Modals/InviteMemberModal';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import AppProvider from "../Context/AppProvider";
+import AuthProvider from "../Context/AuthProvider";
+import ChatRoom from "../components/ChatRoom/ChatRoom";
+import Login from "../components/Login/Login";
+import AddRoomModal from "../components/Modals/AddRoomModal";
+import InviteMemberModal from "../components/Modals/InviteMemberModal";
+import "./App.css";
 
 function App() {
   return (
@@ -14,8 +13,8 @@ function App() {
       <AuthProvider>
         <AppProvider>
           <Routes>
-            <Route path='/login' element={<Login />} />
-            <Route path='/' element={<ChatRoom />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<ChatRoom />} />
           </Routes>
           <AddRoomModal />
           <InviteMemberModal />

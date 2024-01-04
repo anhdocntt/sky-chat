@@ -8,7 +8,7 @@ const firebaseConfig = {
   projectId: "sky-chat-961fd",
   storageBucket: "sky-chat-961fd.appspot.com",
   messagingSenderId: "138833786928",
-  appId: "1:138833786928:web:18dd97d86b2aecf00855f5"
+  appId: "1:138833786928:web:18dd97d86b2aecf00855f5",
 };
 
 firebase.initializeApp(firebaseConfig);

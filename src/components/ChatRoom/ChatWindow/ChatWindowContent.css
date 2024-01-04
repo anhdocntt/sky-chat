@@ -50,10 +50,20 @@
   height: 2rem;
 }
 
-.chat-window-content .chat-window-content-button > button .ant-btn-icon svg path {
+.chat-window-content
+  .chat-window-content-button
+  > button
+  .ant-btn-icon
+  svg
+  path {
   fill: var(--primary-color);
 }
 
-.chat-window-content .chat-window-content-button > button:hover .ant-btn-icon svg path {
+.chat-window-content
+  .chat-window-content-button
+  > button:hover
+  .ant-btn-icon
+  svg
+  path {
   opacity: 0.7;
 }

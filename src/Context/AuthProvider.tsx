@@ -35,12 +35,12 @@ export default function AuthProvider(props: AuthProviderProps) {
 
     return () => {
       user();
-    }
+    };
   }, [navigate]);
 
   return (
     <AuthContext.Provider value={{ user }}>
       {isLoading ? <Spin /> : props.children}
     </AuthContext.Provider>
-  )
-};
+  );
+}

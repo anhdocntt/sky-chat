@@ -1,5 +1,4 @@
 import { Col, Row } from "antd";
-import "./ChatRoom.css";
 import SideBar from "./SideBar/SideBar";
 import ChatWindow from "./ChatWindow/ChatWindow";
 
@@ -15,5 +14,5 @@ export default function ChatRoom() {
         </Col>
       </Row>
     </div>
-  )
+  );
 }

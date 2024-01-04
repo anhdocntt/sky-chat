@@ -25,33 +25,36 @@ export const AppContext = React.createContext<AppContextProps>({
   rooms: [],
   members: [],
   isAddRoomVisible: false,
-  setIsAddRoomVisible: () => { },
+  setIsAddRoomVisible: () => {},
   isInviteMemberVisible: false,
-  setIsInviteMemberVisible: () => { },
+  setIsInviteMemberVisible: () => {},
   selectedRoomId: "",
-  setSelectedRoomId: () => { },
+  setSelectedRoomId: () => {},
   selectedRoom: undefined,
 });
 
 export default function AppProvider(props: AppProviderProps) {
   const [isAddRoomVisible, setIsAddRoomVisible] = useState<boolean>(false);
-  const [isInviteMemberVisible, setIsInviteMemberVisible] = useState<boolean>(false);
+  const [isInviteMemberVisible, setIsInviteMemberVisible] =
+    useState<boolean>(false);
   const [selectedRoomId, setSelectedRoomId] = useState<string>("");
 
-  const { user: { uid } } = useContext(AuthContext);
+  const {
+    user: { uid },
+  } = useContext(AuthContext);
 
   const roomsCondition = useMemo(() => {
     return {
       fieldPath: "members",
       opStr: "array-contains",
       value: uid,
-    }
+    };
   }, [uid]);
 
   const rooms: Room[] = useFirestore(collection.rooms, roomsCondition);
 
   const selectedRoom = useMemo(() => {
-    return rooms.find(room => room.id === selectedRoomId)
+    return rooms.find((room) => room.id === selectedRoomId);
   }, [rooms, selectedRoomId]);
 
   const usersCondition = useMemo(() => {
@@ -59,24 +62,26 @@ export default function AppProvider(props: AppProviderProps) {
       fieldPath: "uid",
       opStr: "in",
       value: selectedRoom?.members,
-    }
+    };
   }, [selectedRoom?.members]);
 
   const members: User[] = useFirestore(collection.users, usersCondition);
 
   return (
-    <AppContext.Provider value={{
-      rooms,
-      members,
-      isAddRoomVisible,
-      setIsAddRoomVisible,
-      isInviteMemberVisible,
-      setIsInviteMemberVisible,
-      selectedRoomId,
-      setSelectedRoomId,
-      selectedRoom,
-    }}>
+    <AppContext.Provider
+      value={{
+        rooms,
+        members,
+        isAddRoomVisible,
+        setIsAddRoomVisible,
+        isInviteMemberVisible,
+        setIsInviteMemberVisible,
+        selectedRoomId,
+        setSelectedRoomId,
+        selectedRoom,
+      }}
+    >
       {props.children}
     </AppContext.Provider>
-  )
-};
+  );
+}
