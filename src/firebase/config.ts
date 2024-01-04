@@ -3,12 +3,12 @@ import "firebase/auth";
 import "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBQqfK1CdECkT0Nq3gGUsXZFmXl_E4fKh4",
-  authDomain: "sky-chat-961fd.firebaseapp.com",
-  projectId: "sky-chat-961fd",
-  storageBucket: "sky-chat-961fd.appspot.com",
-  messagingSenderId: "138833786928",
-  appId: "1:138833786928:web:18dd97d86b2aecf00855f5",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_AP_ID,
 };
 
 firebase.initializeApp(firebaseConfig);
