@@ -22,7 +22,48 @@
 }
 
 .ant-modal-content .ant-modal-footer > button {
-  font-size: var(--font-size);
-  font-weight: 500;
   min-height: 36px;
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.ant-form label,
+.ant-form input,
+.ant-modal-content .ant-modal-body label,
+.ant-modal-content .ant-modal-body input,
+.ant-modal-content .ant-modal-body textarea {
+  font-size: 1.3rem !important;
+}
+
+.logo-spin {
+  animation: logo-spin infinite 10s linear;
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .primary-button {
+    font-size: 1.2rem;
+    min-height: 32px;
+  }
+
+  .ant-modal-content .ant-modal-footer > button {
+    font-size: 1.2rem;
+    min-height: 32px;
+  }
+
+  .ant-form label,
+  .ant-form input,
+  .ant-modal-content .ant-modal-body label,
+  .ant-modal-content .ant-modal-body input,
+  .ant-modal-content .ant-modal-body textarea {
+    font-size: 1.2rem !important;
+  }
 }

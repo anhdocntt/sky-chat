@@ -57,3 +57,9 @@
 .message-wrapper .message-text span {
   font-size: var(--font-size);
 }
+
+@media only screen and (max-width: 640px) {
+  .message-wrapper {
+    margin-right: 0.6rem;
+  }
+}

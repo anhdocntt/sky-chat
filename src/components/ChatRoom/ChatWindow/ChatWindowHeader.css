@@ -10,6 +10,16 @@
   padding-bottom: 0.6rem;
 }
 
+.chat-window-header .chat-window-header-left {
+  display: flex;
+  align-items: center;
+}
+
+.chat-window-header .chat-window-header-left .back-icon {
+  border: none;
+  margin: 0 0.4rem;
+}
+
 .chat-window-header .chat-window-header-info {
   display: flex;
   gap: 0.2rem;
@@ -38,4 +48,22 @@
 
 .chat-window-header .chat-window-header-members > button:hover {
   background-color: var(--primary-bg-color) !important;
+}
+
+@media only screen and (max-width: 768px) {
+  .chat-window-header .chat-window-header-info {
+    padding-left: 0;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .chat-window-header .chat-window-header-info .label {
+    font-size: var(--font-size);
+    line-height: 1.8rem;
+  }
+
+  .chat-window-header .chat-window-header-info .desc {
+    font-size: var(--font-size-sm);
+    line-height: 1.6rem;
+  }
 }

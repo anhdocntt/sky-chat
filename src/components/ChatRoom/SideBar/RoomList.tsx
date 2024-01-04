@@ -7,11 +7,12 @@ import "./RoomList.css";
 const { Panel } = Collapse;
 
 export default function RoomList() {
-  const { rooms, setIsAddRoomVisible, setSelectedRoomId } =
+  const { rooms, setIsAddRoomVisible, setSelectedRoomId, setTab } =
     useContext(AppContext);
 
   const handleRoomClick = (roomId: string | undefined) => {
     roomId && setSelectedRoomId(roomId);
+    setTab(1);
   };
 
   const handleOpenAddRoomModal = () => {

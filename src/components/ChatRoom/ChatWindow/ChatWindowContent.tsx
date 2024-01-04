@@ -19,10 +19,12 @@ export default function ChatWindowContent() {
   const contentRef = useRef<HTMLDivElement>(null);
 
   const handleInputChange = (e: any) => {
-    setInputValue(e.target.value);
+    setInputValue(e.target.value?.trim());
   };
 
   const handleOnSubmit = () => {
+    if (!inputValue) return;
+
     const messageData: IMessage = {
       uid: user.uid,
       text: inputValue,
@@ -32,6 +34,7 @@ export default function ChatWindowContent() {
     };
     addDocument(collection.messages, messageData);
 
+    setInputValue("");
     form.resetFields(["message"]);
   };
 

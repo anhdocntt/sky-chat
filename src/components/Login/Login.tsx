@@ -55,7 +55,7 @@ export default function Login() {
 
   return (
     <div className="login-wrapper">
-      <img src={Logo} alt="Sky Chat" className="logo" />
+      <img src={Logo} alt="Sky Chat" className="logo logo-spin" />
       <span className="login-label">Sky Chat</span>
       <Form form={form} layout="vertical">
         <Form.Item

@@ -1,5 +1,6 @@
 .chat-window-wrapper {
   height: 100vh;
+  flex: 1;
   padding: 2rem 0 1rem;
 }
 
@@ -18,14 +19,10 @@
 .chat-window-wrapper .logo-spin {
   width: 100px;
   height: 100px;
-  animation: logo-spin infinite 10s linear;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+@media only screen and (max-width: 768px) {
+  .chat-window-wrapper {
+    padding-top: 1rem;
   }
 }

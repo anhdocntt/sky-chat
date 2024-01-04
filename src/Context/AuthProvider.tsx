@@ -53,11 +53,13 @@ export default function AuthProvider(props: AuthProviderProps) {
   useEffect(() => {
     if (!users || !users.length) return;
 
-    setUser({
-      ...user,
-      displayName: users[0].displayName,
-      photoURL: users[0].photoURL,
-    });
+    setTimeout(() => {
+      setUser({
+        ...user,
+        displayName: users[0].displayName,
+        photoURL: users[0].photoURL,
+      });
+    }, 0);
   }, [users]);
 
   return (
