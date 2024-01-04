@@ -1,5 +1,6 @@
 .sidebar-wrapper {
   position: relative;
+  width: 300px;
   height: 100vh;
   padding: 2rem 1.6rem;
   background-color: var(--primary-bg-color);
@@ -13,4 +14,16 @@
 
 .sidebar-wrapper .logo {
   width: 120px;
+}
+
+@media only screen and (max-width: 896px) {
+  .sidebar-wrapper {
+    width: 250px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .sidebar-wrapper {
+    flex: 1;
+  }
 }

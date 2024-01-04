@@ -21,6 +21,8 @@ interface AppContextProps {
   selectedRoomId: string;
   setSelectedRoomId: (selectedRoomId: string) => void;
   selectedRoom: Room | undefined;
+  tab: number;
+  setTab: (tab: number) => void;
 }
 
 export const AppContext = React.createContext<AppContextProps>({
@@ -35,6 +37,8 @@ export const AppContext = React.createContext<AppContextProps>({
   selectedRoomId: "",
   setSelectedRoomId: () => {},
   selectedRoom: undefined,
+  tab: 0,
+  setTab: () => {},
 });
 
 export default function AppProvider(props: AppProviderProps) {
@@ -43,6 +47,7 @@ export default function AppProvider(props: AppProviderProps) {
     useState<boolean>(false);
   const [isSignUpVisible, setIsSignUpVisible] = useState<boolean>(false);
   const [selectedRoomId, setSelectedRoomId] = useState<string>("");
+  const [tab, setTab] = useState<number>(0);
 
   const {
     user: { uid },
@@ -86,6 +91,8 @@ export default function AppProvider(props: AppProviderProps) {
         selectedRoomId,
         setSelectedRoomId,
         selectedRoom,
+        tab,
+        setTab,
       }}
     >
       {props.children}

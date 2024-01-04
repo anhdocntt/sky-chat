@@ -1,12 +1,14 @@
-import { UserAddOutlined } from "@ant-design/icons";
+import { ArrowLeftOutlined, UserAddOutlined } from "@ant-design/icons";
 import { Avatar, Button, Tooltip } from "antd";
 import { useContext } from "react";
+import { useMedia } from "react-use";
 import { AppContext } from "../../../Context/AppProvider";
 import "./ChatWindowHeader.css";
 
 export default function ChatWindowHeader() {
-  const { members, selectedRoom, setIsInviteMemberVisible } =
+  const { members, selectedRoom, setIsInviteMemberVisible, setTab } =
     useContext(AppContext);
+  const isSmall = useMedia("(max-width: 768px)");
 
   const handleInvite = () => {
     setIsInviteMemberVisible(true);
@@ -14,9 +16,18 @@ export default function ChatWindowHeader() {
 
   return (
     <div className="chat-window-header">
-      <div className="chat-window-header-info">
-        <span className="label">{selectedRoom?.name}</span>
-        <span className="desc">{selectedRoom?.desc}</span>
+      <div className="chat-window-header-left">
+        {isSmall && (
+          <Button
+            icon={<ArrowLeftOutlined />}
+            className="back-icon"
+            onClick={() => setTab(0)}
+          />
+        )}
+        <div className="chat-window-header-info">
+          <span className="label">{selectedRoom?.name}</span>
+          <span className="desc">{selectedRoom?.desc}</span>
+        </div>
       </div>
       <div className="chat-window-header-members">
         <Button
