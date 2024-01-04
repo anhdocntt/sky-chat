@@ -1,13 +1,14 @@
-import React, { useContext, useMemo, useState } from 'react';
-import "./ChatWindowContent.css";
+import { SendOutlined } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
-import Message from './Message';
-import { AuthContext } from '../../../Context/AuthProvider';
+import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { AppContext } from '../../../Context/AppProvider';
-import { Message as IMessage } from '../../../interfaces/Message';
-import { addDocument } from '../../../firebase/service';
+import { AuthContext } from '../../../Context/AuthProvider';
 import { collection } from '../../../firebase/collection';
+import { addDocument } from '../../../firebase/service';
 import useFirestore from '../../../hooks/useFirestore';
+import { Message as IMessage } from '../../../interfaces/Message';
+import "./ChatWindowContent.css";
+import Message from './Message';
 
 export default function ChatWindowContent() {
   const { user } = useContext(AuthContext);
@@ -15,6 +16,7 @@ export default function ChatWindowContent() {
 
   const [inputValue, setInputValue] = useState<string>("");
   const [form] = Form.useForm();
+  const contentRef = useRef<HTMLDivElement>(null);
 
   const handleInputChange = (e: any) => {
     setInputValue(e.target.value);
@@ -43,13 +45,22 @@ export default function ChatWindowContent() {
 
   const messages: IMessage[] = useFirestore(collection.messages, messagesCondition);
 
+  useEffect(() => {
+    setTimeout(() => {
+      if (contentRef.current) {
+        contentRef.current.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+      }
+    }, 0);
+  }, [messages]);
+
   return (
-    <div>
-      <div>
+    <div className='chat-window-content'>
+      <div className='chat-window-messages'>
         {messages.map(message => {
           return (
             <Message
               key={message.id}
+              uid={message.uid}
               name={message.displayName}
               photoURL={message.photoURL}
               text={message.text}
@@ -57,18 +68,24 @@ export default function ChatWindowContent() {
             />
           )
         })}
+        <div ref={contentRef} />
       </div>
-      <Form form={form}>
+      <Form className='chat-window-content-button' form={form}>
         <Form.Item name="message">
           <Input
+            autoFocus
             placeholder='Type your message...'
-            bordered={false}
             autoComplete='off'
             onChange={handleInputChange}
             onPressEnter={handleOnSubmit}
           />
         </Form.Item>
-        <Button type='primary' onClick={handleOnSubmit}>Send</Button>
+        <Button
+          className='primary-button'
+          type='primary'
+          icon={<SendOutlined />}
+          onClick={handleOnSubmit}
+        />
       </Form>
     </div>
   )

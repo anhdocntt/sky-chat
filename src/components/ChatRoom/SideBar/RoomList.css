@@ -1,0 +1,24 @@
+.room-list-wrapper {
+  max-height: 75vh;
+  overflow-y: auto;
+}
+
+.room-list-wrapper .ant-collapse-header-text {
+  font-size: var(--font-size);
+  font-weight: 600;
+}
+
+.room-list-wrapper .ant-collapse-content-box {
+  display: flex;
+  gap: 0.6rem;
+  flex-direction: column;
+}
+
+.room-list-wrapper .ant-collapse-content-box > a {
+  color: var(--primary-color);
+  font-size: var(--font-size);
+}
+
+.room-list-wrapper .ant-collapse-content-box > button:hover {
+  background: var(--primary-bg-color) !important;
+}

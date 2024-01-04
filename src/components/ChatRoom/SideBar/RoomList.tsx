@@ -18,7 +18,7 @@ export default function RoomList() {
   };
 
   return (
-    <Collapse defaultActiveKey={["listRooms"]}>
+    <Collapse className='room-list-wrapper' defaultActiveKey={["listRooms"]}>
       <Panel key={"listRooms"} header={"List of chat rooms"}>
         {rooms.map(room => {
           return (
@@ -30,7 +30,7 @@ export default function RoomList() {
             </Typography.Link>
           )
         })}
-        <Button type='text' icon={<PlusSquareOutlined />} onClick={handleOpenAddRoomModal}>Add room</Button>
+        <Button className='primary-button' type='text' icon={<PlusSquareOutlined />} onClick={handleOpenAddRoomModal}>Add room</Button>
       </Panel>
     </Collapse>
   )

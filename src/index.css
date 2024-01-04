@@ -20,3 +20,14 @@ html {
   box-sizing: border-box;
   letter-spacing: 0.02rem;
 }
+
+#root {
+  --primary-color: #00c8ff;
+  --primary-bg-color: #cdf8ff;
+  --primary-bg-btn-color: #ebfcff;
+  --border-color: #d0d0d0;
+
+  --font-size: 1.3rem;
+  --font-size-lg: 1.6rem;
+  --font-size-sm: 1rem;
+}

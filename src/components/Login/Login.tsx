@@ -5,6 +5,7 @@ import { auth, db } from "../../firebase/config";
 import { addDocument, generateKeywords } from "../../firebase/service";
 import { collection } from "../../firebase/collection";
 import { User } from "../../interfaces/User";
+import Logo from "../../assets/images/logo.png"
 
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 
@@ -27,12 +28,9 @@ export default function Login() {
 
   return (
     <div className="login-wrapper">
-      <Row>
-        <Col span={8}>
-          <span>Sky Chat</span>
-          <Button onClick={handleGoogleLogin}>Login with Google</Button>
-        </Col>
-      </Row>
+      <img src={Logo} alt="Sky Chat" className="logo" />
+      <span className="login-label">Sky Chat</span>
+      <Button className="primary-button" onClick={handleGoogleLogin}>Login with Google</Button>
     </div>
   )
 }

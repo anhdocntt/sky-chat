@@ -8,13 +8,13 @@ export default function ChatWindow() {
   const { selectedRoom } = useContext(AppContext);
 
   return (
-    <div>
+    <div className='chat-window-wrapper'>
       {selectedRoom
-      ? <React.Fragment>
+        ? <React.Fragment>
           <ChatWindowHeader />
           <ChatWindowContent />
         </React.Fragment>
-      : <div>Please choose room</div>
+        : <div className='room-empty'>No rooms have been selected yet.</div>
       }
     </div>
   )

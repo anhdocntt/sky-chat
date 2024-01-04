@@ -1,0 +1,59 @@
+.chat-window-content {
+  position: relative;
+  height: calc(100% - 52px);
+}
+
+.chat-window-content .chat-window-messages {
+  height: calc(100% - 5rem);
+  padding: 1.6rem 0 0 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow-y: auto;
+}
+
+.chat-window-content .chat-window-content-button {
+  height: 5rem;
+  padding: 1.6rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.6rem;
+}
+
+.chat-window-content .chat-window-content-button > .ant-form-item {
+  margin-bottom: 0;
+  width: 100%;
+}
+
+.chat-window-content .chat-window-content-button > .ant-form-item input {
+  font-size: var(--font-size);
+  background: var(--primary-bg-btn-color);
+  height: 36px;
+}
+
+.chat-window-content .chat-window-content-button > button {
+  background: transparent;
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chat-window-content .chat-window-content-button > button:hover {
+  background: transparent !important;
+}
+
+.chat-window-content .chat-window-content-button > button .ant-btn-icon svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+.chat-window-content .chat-window-content-button > button .ant-btn-icon svg path {
+  fill: var(--primary-color);
+}
+
+.chat-window-content .chat-window-content-button > button:hover .ant-btn-icon svg path {
+  opacity: 0.7;
+}

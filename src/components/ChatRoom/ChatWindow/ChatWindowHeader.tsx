@@ -14,14 +14,14 @@ export default function ChatWindowHeader() {
   }
 
   return (
-    <div>
-      <div>
-        <span>{selectedRoom?.name}</span>
-        <span>{selectedRoom?.desc}</span>
+    <div className='chat-window-header'>
+      <div className='chat-window-header-info'>
+        <span className='label'>{selectedRoom?.name}</span>
+        <span className='desc'>{selectedRoom?.desc}</span>
       </div>
-      <div>
-        <Button icon={<UserAddOutlined />} type='text' onClick={handleInvite}>Invite</Button>
-        <Avatar.Group size={"small"} maxCount={2}>
+      <div className='chat-window-header-members'>
+        <Button className='primary-button' icon={<UserAddOutlined />} type='text' onClick={handleInvite}>Invite</Button>
+        <Avatar.Group size={"small"} maxCount={3}>
           {members.map(member => {
             return (
               <Tooltip title={member.displayName} key={member.id}>

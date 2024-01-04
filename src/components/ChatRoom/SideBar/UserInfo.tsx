@@ -14,14 +14,14 @@ export default function UserInfo() {
   const handleLogout = () => {
     auth.signOut();
   };
-  
+
   return (
-    <div>
-      <div>
+    <div className='user-info-wrapper'>
+      <div className='user-info'>
         <Avatar src={photoURL}>{photoURL ? "" : displayName?.charAt(0).toUpperCase()}</Avatar>
         <Typography.Text>{displayName}</Typography.Text>
       </div>
-      <Button onClick={handleLogout}>Logout</Button>
+      <Button className='primary-button' onClick={handleLogout}>Logout</Button>
     </div>
   )
 }

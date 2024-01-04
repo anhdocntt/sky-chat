@@ -1,18 +1,17 @@
 import React from 'react';
 import "./SideBar.css";
-import { Col, Row } from 'antd';
 import UserInfo from './UserInfo';
 import RoomList from './RoomList';
+import Logo from "../../../assets/images/logo-small.png"
 
 export default function SideBar() {
   return (
-    <Row>
-      <Col span={24}>
-        <UserInfo />
-      </Col>
-      <Col span={24}>
-        <RoomList />
-      </Col>
-    </Row>
+    <div className='sidebar-wrapper'>
+      <UserInfo />
+      <RoomList />
+      <div className='logo-wrapper'>
+        <img src={Logo} alt='Sky Chat' className='logo' />
+      </div>
+    </div>
   )
 }

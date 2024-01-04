@@ -1,13 +1,10 @@
-import React, { useContext, useState } from 'react';
-import "./InviteMemberModal.css";
-import { Avatar, Form, Input, Modal, Select, Spin } from 'antd';
-import { AppContext } from '../../Context/AppProvider';
-import { AuthContext } from '../../Context/AuthProvider';
-import { Room } from '../../interfaces/Room';
-import { addDocument } from '../../firebase/service';
-import { collection } from '../../firebase/collection';
+import { Avatar, Form, Modal, Select, Spin } from 'antd';
 import { debounce } from 'lodash';
+import React, { useContext, useState } from 'react';
+import { AppContext } from '../../Context/AppProvider';
+import { collection } from '../../firebase/collection';
 import { db } from '../../firebase/config';
+import "./InviteMemberModal.css";
 
 interface Option {
   value: string;
@@ -85,7 +82,7 @@ export default function InviteMemberModal() {
   const fetchUserList = async (search: string, curMembers: (string | undefined)[]) => {
     return db
       .collection(collection.users)
-      .where('keywords', 'array-contains', search?.toLowerCase())
+      .where('keywords', 'array-contains', search.toLowerCase())
       .limit(20)
       .get()
       .then((snapshot) => {
@@ -117,6 +114,7 @@ export default function InviteMemberModal() {
     form.resetFields();
     setIsInviteMemberVisible(false);
   };
+
   return (
     <div>
       <Modal
@@ -126,16 +124,17 @@ export default function InviteMemberModal() {
         onCancel={handleCancel}
       >
         <Form form={form} layout='vertical'>
-          <DebounceSelect
-            fetchOptions={fetchUserList}
-            curMembers={selectedRoom?.members || []}
-            mode='multiple'
-            name='search-user'
-            label='Tên các thành viên'
-            placeholder='Nhập tên thành viên'
-            style={{ width: '100%' }}
-            onChange={(newValue: any[]) => setValue(newValue)}
-          />
+          <Form.Item name="search-user">
+            <DebounceSelect
+              fetchOptions={fetchUserList}
+              curMembers={selectedRoom?.members || []}
+              mode='multiple'
+              label='Members name'
+              placeholder='Type member name'
+              style={{ width: '100%' }}
+              onChange={(newValue: any[]) => setValue(newValue)}
+            />
+          </Form.Item>
         </Form>
       </Modal>
     </div>
