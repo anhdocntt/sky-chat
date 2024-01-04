@@ -7,7 +7,7 @@ export default function useFirestore(collection: collection, condition: Conditio
   const [docs, setDocs] = useState<any[]>([]);
 
   useEffect(() => {
-    let collectionRef = db.collection(collection);
+    let collectionRef = db.collection(collection).limit(100);
 
     if (condition) {
       if (!condition.value || !condition.value?.length) {
@@ -15,7 +15,7 @@ export default function useFirestore(collection: collection, condition: Conditio
         return;
       }
 
-      collectionRef.where(
+      collectionRef = collectionRef.where(
         condition.fieldPath,
         condition.opStr,
         condition.value

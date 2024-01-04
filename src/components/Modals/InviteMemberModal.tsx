@@ -72,34 +72,48 @@ const DebounceSelect: React.FC<DebounceSelectProps> = ({
 }
 
 export default function InviteMemberModal() {
-  const { selectedRoom, isInviteMemberVisible, setIsInviteMemberVisible } = useContext(AppContext);
+  const {
+    selectedRoom,
+    selectedRoomId,
+    isInviteMemberVisible,
+    setIsInviteMemberVisible,
+  } = useContext(AppContext);
+
+  const [value, setValue] = useState<any[]>([]);
   const [form] = Form.useForm();
 
   const fetchUserList = async (search: string, curMembers: (string | undefined)[]) => {
     return db
-    .collection(collection.users)
-    .where('keywords', 'array-contains', search?.toLowerCase())
-    .limit(20)
-    .get()
-    .then((snapshot) => {
-      return snapshot.docs
-        .map((doc) => ({
-          label: doc.data()?.displayName,
-          value: doc.data()?.uid,
-          photoURL: doc.data()?.photoURL,
-        }))
-        .filter((opt) => !curMembers.includes(opt.value))
-    });
+      .collection(collection.users)
+      .where('keywords', 'array-contains', search?.toLowerCase())
+      .limit(20)
+      .get()
+      .then((snapshot) => {
+        return snapshot.docs
+          .map((doc) => ({
+            label: doc.data()?.displayName,
+            value: doc.data()?.uid,
+            photoURL: doc.data()?.photoURL,
+          }))
+          .filter((opt) => !curMembers.includes(opt.value))
+      });
   };
 
   const handleOk = () => {
+    if (!selectedRoom) return;
 
+    const roomRef = db.collection(collection.rooms).doc(selectedRoomId);
+    roomRef.update({
+      members: [...selectedRoom.members, ...value.map(val => val.value)]
+    })
 
+    setValue([]);
     form.resetFields();
     setIsInviteMemberVisible(false);
   };
 
   const handleCancel = () => {
+    setValue([]);
     form.resetFields();
     setIsInviteMemberVisible(false);
   };
@@ -112,7 +126,7 @@ export default function InviteMemberModal() {
         onCancel={handleCancel}
       >
         <Form form={form} layout='vertical'>
-          <DebounceSelect 
+          <DebounceSelect
             fetchOptions={fetchUserList}
             curMembers={selectedRoom?.members || []}
             mode='multiple'
@@ -120,6 +134,7 @@ export default function InviteMemberModal() {
             label='Tên các thành viên'
             placeholder='Nhập tên thành viên'
             style={{ width: '100%' }}
+            onChange={(newValue: any[]) => setValue(newValue)}
           />
         </Form>
       </Modal>
