@@ -3,12 +3,17 @@ import { formatRelative } from "date-fns";
 import { useContext, useMemo } from "react";
 import { AuthContext } from "../../../Context/AuthProvider";
 import "./Message.css";
+import { messageType } from "../../../enums/messgaeType";
+import FilePreview from "../../FileReview/FileReview";
 
 type MessageParams = {
   uid?: string;
+  type: messageType;
+  fileURL?: string;
   text: string;
   name?: string | null;
   photoURL?: string | null;
+  fileType?: string;
   createAt?: number;
 };
 
@@ -45,9 +50,15 @@ export default function Message(props: MessageParams) {
           {formatDate(props.createAt)}
         </Typography.Text>
       </div>
-      <div className="message-text">
-        <Typography.Text>{props.text}</Typography.Text>
-      </div>
+      {props.type === messageType.text ? (
+        <div className="message-text">
+          <Typography.Text>{props.text}</Typography.Text>
+        </div>
+      ) : (
+        <div className="message-text">
+          <FilePreview fileURL={props.fileURL} fileType={props.fileType} />
+        </div>
+      )}
     </div>
   );
 }

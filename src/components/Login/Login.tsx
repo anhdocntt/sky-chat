@@ -4,7 +4,7 @@ import firebase from "firebase/app";
 import { useContext } from "react";
 import { AppContext } from "../../Context/AppProvider";
 import Logo from "../../assets/images/logo.png";
-import { collection } from "../../firebase/collection";
+import { collection } from "../../enums/collection";
 import { auth } from "../../firebase/config";
 import { addDocument, generateKeywords } from "../../firebase/service";
 import { User } from "../../interfaces/User";

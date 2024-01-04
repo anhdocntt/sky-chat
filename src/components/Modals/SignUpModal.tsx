@@ -1,7 +1,7 @@
 import { Form, Input, Modal } from "antd";
 import { useContext } from "react";
 import { AppContext } from "../../Context/AppProvider";
-import { collection } from "../../firebase/collection";
+import { collection } from "../../enums/collection";
 import { auth } from "../../firebase/config";
 import { addDocument, generateKeywords } from "../../firebase/service";
 import { User } from "../../interfaces/User";
