@@ -23,12 +23,13 @@ export default function useFirestore(collection: collection, condition: Conditio
     }
 
     const unsubcribe = collectionRef.onSnapshot(snapshot => {
-      const docs = snapshot.docs.map(doc => ({
+      const docs: any[] = snapshot.docs.map(doc => ({
         ...doc.data(),
         id: doc.id,
       }));
 
-      setDocs(docs);
+      const docsFilter = docs.sort((a, b) => a.createdAt?.seconds - b.createdAt?.seconds);
+      setDocs(docsFilter);
     });
     
     return () => {
