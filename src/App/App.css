@@ -1,0 +1,28 @@
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #bdbdbd;
+  border-radius: 16px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #cdcdcd;
+}
+
+.primary-button {
+  font-size: var(--font-size);
+  font-weight: 500;
+  min-height: 36px;
+}
+
+.ant-modal-content .ant-modal-footer > button {
+  font-size: var(--font-size);
+  font-weight: 500;
+  min-height: 36px;
+}

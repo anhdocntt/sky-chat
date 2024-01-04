@@ -1,0 +1,13 @@
+.user-info-wrapper {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.user-info-wrapper .user-info {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+}
