@@ -14,15 +14,20 @@ export default function AddRoomModal() {
   const [form] = Form.useForm();
 
   const handleOk = () => {
-    const roomData: Room = {
-      name: form.getFieldsValue().name,
-      desc: form.getFieldsValue().description,
-      members: [uid],
-    };
-    addDocument(collection.rooms, roomData);
+    form
+      .validateFields()
+      .then(() => {
+        const roomData: Room = {
+          name: form.getFieldsValue().name,
+          desc: form.getFieldsValue().description || "",
+          members: [uid],
+        };
+        addDocument(collection.rooms, roomData);
 
-    form.resetFields();
-    setIsAddRoomVisible(false);
+        form.resetFields();
+        setIsAddRoomVisible(false);
+      })
+      .catch(() => {});
   };
 
   const handleCancel = () => {
@@ -38,7 +43,16 @@ export default function AddRoomModal() {
         onCancel={handleCancel}
       >
         <Form form={form} layout="vertical">
-          <Form.Item label="Room name" name="name">
+          <Form.Item
+            label="Room name"
+            name="name"
+            rules={[
+              {
+                required: true,
+                message: "Please input your room name!",
+              },
+            ]}
+          >
             <Input placeholder="Type room name" />
           </Form.Item>
           <Form.Item label="Room description" name="description">

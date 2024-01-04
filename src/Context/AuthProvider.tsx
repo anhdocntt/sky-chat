@@ -1,8 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase/config";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Spin } from "antd";
 import { User } from "../interfaces/User";
+import useFirestore from "../hooks/useFirestore";
+import { collection } from "../firebase/collection";
 
 interface AuthProviderProps {
   children: React.ReactNode;
@@ -37,6 +39,26 @@ export default function AuthProvider(props: AuthProviderProps) {
       user();
     };
   }, [navigate]);
+
+  const usersCondition = useMemo(() => {
+    return {
+      fieldPath: "uid",
+      opStr: "==",
+      value: user?.uid,
+    };
+  }, [user?.uid]);
+
+  const users: User[] = useFirestore(collection.users, usersCondition);
+
+  useEffect(() => {
+    if (!users || !users.length) return;
+
+    setUser({
+      ...user,
+      displayName: users[0].displayName,
+      photoURL: users[0].photoURL,
+    });
+  }, [users]);
 
   return (
     <AuthContext.Provider value={{ user }}>

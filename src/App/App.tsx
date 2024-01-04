@@ -6,6 +6,7 @@ import Login from "../components/Login/Login";
 import AddRoomModal from "../components/Modals/AddRoomModal";
 import InviteMemberModal from "../components/Modals/InviteMemberModal";
 import "./App.css";
+import SignUpModal from "../components/Modals/SignUpModal";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           </Routes>
           <AddRoomModal />
           <InviteMemberModal />
+          <SignUpModal />
         </AppProvider>
       </AuthProvider>
     </BrowserRouter>

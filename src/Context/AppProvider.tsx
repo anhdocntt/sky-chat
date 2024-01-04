@@ -16,6 +16,8 @@ interface AppContextProps {
   setIsAddRoomVisible: (isAddRoomVisible: boolean) => void;
   isInviteMemberVisible: boolean;
   setIsInviteMemberVisible: (isInviteMemberVisible: boolean) => void;
+  isSignUpVisible: boolean;
+  setIsSignUpVisible: (isSignUpVisible: boolean) => void;
   selectedRoomId: string;
   setSelectedRoomId: (selectedRoomId: string) => void;
   selectedRoom: Room | undefined;
@@ -28,6 +30,8 @@ export const AppContext = React.createContext<AppContextProps>({
   setIsAddRoomVisible: () => {},
   isInviteMemberVisible: false,
   setIsInviteMemberVisible: () => {},
+  isSignUpVisible: false,
+  setIsSignUpVisible: () => {},
   selectedRoomId: "",
   setSelectedRoomId: () => {},
   selectedRoom: undefined,
@@ -37,6 +41,7 @@ export default function AppProvider(props: AppProviderProps) {
   const [isAddRoomVisible, setIsAddRoomVisible] = useState<boolean>(false);
   const [isInviteMemberVisible, setIsInviteMemberVisible] =
     useState<boolean>(false);
+  const [isSignUpVisible, setIsSignUpVisible] = useState<boolean>(false);
   const [selectedRoomId, setSelectedRoomId] = useState<string>("");
 
   const {
@@ -76,6 +81,8 @@ export default function AppProvider(props: AppProviderProps) {
         setIsAddRoomVisible,
         isInviteMemberVisible,
         setIsInviteMemberVisible,
+        isSignUpVisible,
+        setIsSignUpVisible,
         selectedRoomId,
         setSelectedRoomId,
         selectedRoom,
