@@ -1,0 +1,16 @@
+.sidebar-wrapper {
+  position: relative;
+  height: 100vh;
+  padding: 2rem 1.6rem;
+  background-color: var(--primary-bg-color);
+}
+
+.sidebar-wrapper .logo-wrapper {
+  position: absolute;
+  bottom: 0;
+  padding-bottom: 1rem;
+}
+
+.sidebar-wrapper .logo {
+  width: 120px;
+}
