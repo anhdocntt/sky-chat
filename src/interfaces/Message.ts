@@ -10,5 +10,6 @@ export interface Message {
   type: messageType;
   fileType?: string;
   fileURL?: string;
+  fileName?: string;
   createdAt?: any;
 }

@@ -32,6 +32,8 @@ export default function ChatWindowContent() {
   };
 
   const handleUpload = (file: any) => {
+    if (!file) return;
+
     const storageRef = storage.ref();
     const fileRef = storageRef.child(`${Date.now()}_${file.name}`);
     fileRef.put(file).then(() => {
@@ -44,6 +46,7 @@ export default function ChatWindowContent() {
           type: messageType.file,
           fileType: file.type,
           fileURL: url,
+          fileName: file.name,
           roomId: selectedRoomId,
         };
         addDocument(collection.messages, messageData);
@@ -110,6 +113,7 @@ export default function ChatWindowContent() {
               name={message.displayName}
               photoURL={message.photoURL}
               fileType={message.fileType}
+              fileName={message.fileName}
               text={message.text}
               createAt={message.createdAt?.seconds}
             />
@@ -134,7 +138,6 @@ export default function ChatWindowContent() {
           onChange={handleFileChange}
         />
         <Button
-          style={{ display: "none" }}
           className="primary-button"
           type="primary"
           icon={<FileImageOutlined />}

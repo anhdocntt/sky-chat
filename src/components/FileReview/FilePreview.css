@@ -1,0 +1,16 @@
+.file-preview-wrapper {
+  cursor: pointer;
+}
+
+.file-preview-wrapper .image-file {
+  max-height: 100px;
+}
+
+.file-preview-wrapper .file-name {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: var(--font-size);
+  line-height: 2rem;
+  padding: 0.4rem 1rem;
+}

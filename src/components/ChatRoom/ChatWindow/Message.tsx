@@ -14,6 +14,7 @@ type MessageParams = {
   name?: string | null;
   photoURL?: string | null;
   fileType?: string;
+  fileName?: string;
   createAt?: number;
 };
 
@@ -55,8 +56,12 @@ export default function Message(props: MessageParams) {
           <Typography.Text>{props.text}</Typography.Text>
         </div>
       ) : (
-        <div className="message-text">
-          <FilePreview fileURL={props.fileURL} fileType={props.fileType} />
+        <div className="message-text message-file">
+          <FilePreview
+            fileURL={props.fileURL}
+            fileType={props.fileType}
+            fileName={props.fileName}
+          />
         </div>
       )}
     </div>

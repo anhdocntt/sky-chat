@@ -1,42 +1,53 @@
-import React from "react";
-import FileViewer from "react-file-viewer";
+/* eslint-disable jsx-a11y/img-redundant-alt */
+import { FileImageOutlined } from "@ant-design/icons";
+import "./FilePreview.css";
 
 type FilePreviewParams = {
   fileURL?: string;
   fileType?: string;
+  fileName?: string;
 };
 
 export default function FilePreview(props: FilePreviewParams) {
-  const fileExtension = getFileExtension(props.fileType);
-  console.log({ fileExtension, url: props.fileURL });
+  const isImageFile = props.fileType?.includes("image");
 
-  const options = {
-    supportedFileExtensions: [
-      "pdf",
-      "jpg",
-      "jpeg",
-      "png",
-      "gif",
-      "docx",
-      "doc",
-    ],
-    allowFullScreen: false,
-    externalViewer: true,
+  const handleDownload = () => {
+    if (!props.fileURL) return;
+
+    fetch(props.fileURL)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        return response.blob();
+      })
+      .then((blob) => {
+        const url = window.URL.createObjectURL(new Blob([blob]));
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = props.fileName || "download";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        window.URL.revokeObjectURL(url);
+      })
+      .catch((error) => {
+        console.error("Error downloading the file:", error);
+      });
   };
 
   return (
-    <div>
-      <FileViewer
-        fileType={fileExtension}
-        filePath={props.fileURL}
-        options={options}
-      />
+    <div className="file-preview-wrapper" onClick={handleDownload}>
+      {isImageFile ? (
+        <img className="image-file" src={props.fileURL} alt={props.fileName} />
+      ) : (
+        <div className="file-name">
+          <FileImageOutlined />
+          <span>{props.fileName}</span>
+        </div>
+      )}
     </div>
   );
-}
-
-function getFileExtension(fileType: string | undefined) {
-  if (!fileType) return "";
-
-  return fileType.split("/").pop()?.toLowerCase();
 }
