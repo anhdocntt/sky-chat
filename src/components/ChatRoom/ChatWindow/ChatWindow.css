@@ -16,6 +16,11 @@
   line-height: 2.2rem;
 }
 
+.chat-window-wrapper .room-empty .choose-room {
+  cursor: pointer;
+  color: var(--primary-color);
+}
+
 .chat-window-wrapper .logo-spin {
   width: 100px;
   height: 100px;
