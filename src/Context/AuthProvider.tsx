@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Spin } from "antd";
 import { User } from "../interfaces/User";
 import useFirestore from "../hooks/useFirestore";
-import { collection } from "../firebase/collection";
+import { collection } from "../enums/collection";
 
 interface AuthProviderProps {
   children: React.ReactNode;

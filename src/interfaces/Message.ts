@@ -1,3 +1,5 @@
+import { messageType } from "../enums/messgaeType";
+
 export interface Message {
   id?: string;
   text: string;
@@ -5,5 +7,9 @@ export interface Message {
   displayName?: string | null;
   photoURL?: string | null;
   roomId: string;
+  type: messageType;
+  fileType?: string;
+  fileURL?: string;
+  fileName?: string;
   createdAt?: any;
 }

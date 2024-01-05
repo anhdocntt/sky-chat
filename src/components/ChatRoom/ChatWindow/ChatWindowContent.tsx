@@ -1,14 +1,16 @@
-import { SendOutlined } from "@ant-design/icons";
+import { FileImageOutlined, SendOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { AppContext } from "../../../Context/AppProvider";
 import { AuthContext } from "../../../Context/AuthProvider";
-import { collection } from "../../../firebase/collection";
+import { collection } from "../../../enums/collection";
 import { addDocument } from "../../../firebase/service";
 import useFirestore from "../../../hooks/useFirestore";
 import { Message as IMessage } from "../../../interfaces/Message";
 import "./ChatWindowContent.css";
 import Message from "./Message";
+import { storage } from "../../../firebase/config";
+import { messageType } from "../../../enums/messgaeType";
 
 export default function ChatWindowContent() {
   const { user } = useContext(AuthContext);
@@ -22,6 +24,40 @@ export default function ChatWindowContent() {
     setInputValue(e.target.value?.trim());
   };
 
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileChange = (e: any) => {
+    const file = e.target.files[0];
+    handleUpload(file);
+  };
+
+  const handleUpload = (file: any) => {
+    if (!file) return;
+
+    const storageRef = storage.ref();
+    const fileRef = storageRef.child(`${Date.now()}_${file.name}`);
+    fileRef.put(file).then(() => {
+      fileRef.getDownloadURL().then((url: string) => {
+        const messageData: IMessage = {
+          uid: user.uid,
+          text: "",
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+          type: messageType.file,
+          fileType: file.type,
+          fileURL: url,
+          fileName: file.name,
+          roomId: selectedRoomId,
+        };
+        addDocument(collection.messages, messageData);
+      });
+    });
+  };
+
+  const handleUploadFile = () => {
+    fileInputRef.current?.click();
+  };
+
   const handleOnSubmit = () => {
     if (!inputValue) return;
 
@@ -30,6 +66,7 @@ export default function ChatWindowContent() {
       text: inputValue,
       displayName: user.displayName,
       photoURL: user.photoURL,
+      type: messageType.text,
       roomId: selectedRoomId,
     };
     addDocument(collection.messages, messageData);
@@ -71,8 +108,12 @@ export default function ChatWindowContent() {
             <Message
               key={message.id}
               uid={message.uid}
+              type={message.type}
+              fileURL={message.fileURL}
               name={message.displayName}
               photoURL={message.photoURL}
+              fileType={message.fileType}
+              fileName={message.fileName}
               text={message.text}
               createAt={message.createdAt?.seconds}
             />
@@ -90,6 +131,18 @@ export default function ChatWindowContent() {
             onPressEnter={handleOnSubmit}
           />
         </Form.Item>
+        <input
+          type="file"
+          ref={fileInputRef}
+          style={{ display: "none" }}
+          onChange={handleFileChange}
+        />
+        <Button
+          className="primary-button"
+          type="primary"
+          icon={<FileImageOutlined />}
+          onClick={handleUploadFile}
+        />
         <Button
           className="primary-button"
           type="primary"

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { db } from "../firebase/config";
-import { collection } from "../firebase/collection";
+import { collection } from "../enums/collection";
 import { Condition } from "../interfaces/Condition";
 
 export default function useFirestore(

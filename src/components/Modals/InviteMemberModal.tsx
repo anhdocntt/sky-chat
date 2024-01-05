@@ -2,7 +2,7 @@ import { Avatar, Form, Modal, Select, Spin } from "antd";
 import { debounce } from "lodash";
 import React, { useContext, useState } from "react";
 import { AppContext } from "../../Context/AppProvider";
-import { collection } from "../../firebase/collection";
+import { collection } from "../../enums/collection";
 import { db } from "../../firebase/config";
 
 interface Option {

@@ -1,5 +1,5 @@
 import React, { useContext, useMemo, useState } from "react";
-import { collection } from "../firebase/collection";
+import { collection } from "../enums/collection";
 import useFirestore from "../hooks/useFirestore";
 import { Room } from "../interfaces/Room";
 import { AuthContext } from "./AuthProvider";
