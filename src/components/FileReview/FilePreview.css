@@ -4,6 +4,9 @@
 
 .file-preview-wrapper .image-file {
   max-height: 100px;
+  max-width: 100%;
+  object-fit: contain;
+  border-radius: 12px;
 }
 
 .file-preview-wrapper .file-name {
