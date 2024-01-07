@@ -5,12 +5,17 @@ import { Condition } from "../interfaces/Condition";
 
 export default function useFirestore(
   collection: collection,
-  condition: Condition
+  condition: Condition,
+  limit: number = 100
 ) {
   const [docs, setDocs] = useState<any[]>([]);
+  let curDocs: any[] = [];
 
   useEffect(() => {
-    let collectionRef = db.collection(collection).limit(100);
+    let collectionRef = db
+      .collection(collection)
+      .orderBy("createdAt")
+      .limit(limit);
 
     if (condition) {
       if (!condition.value || !condition.value?.length) {
@@ -25,20 +30,36 @@ export default function useFirestore(
       );
     }
 
-    const unsubcribe = collectionRef.onSnapshot((snapshot) => {
-      const docs: any[] = snapshot.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
+    const unsubscribe = collectionRef.onSnapshot((snapshot) => {
+      const newDocs = snapshot
+        .docChanges()
+        .map((change) => {
+          const newDoc = {
+            id: change.doc.id,
+            ...change.doc.data(),
+          };
 
-      const docsFilter = docs.sort(
-        (a, b) => a.createdAt?.seconds - b.createdAt?.seconds
-      );
-      setDocs(docsFilter);
+          const existingDocIndex = curDocs.findIndex(
+            (doc) => doc.id === newDoc.id
+          );
+
+          if (existingDocIndex === -1) {
+            return newDoc;
+          } else {
+            curDocs[existingDocIndex] = newDoc;
+          }
+
+          return null;
+        })
+        .filter((doc) => doc !== null);
+
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      curDocs = [...curDocs, ...newDocs];
+      setDocs(curDocs);
     });
 
     return () => {
-      unsubcribe();
+      unsubscribe();
     };
   }, [collection, condition]);
 

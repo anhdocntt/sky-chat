@@ -72,7 +72,7 @@ export default function Login() {
             },
           ]}
         >
-          <Input placeholder="Your email" />
+          <Input placeholder="Your email" onPressEnter={handleEmailLogin} />
         </Form.Item>
         <Form.Item
           label="Password"
@@ -84,7 +84,10 @@ export default function Login() {
             },
           ]}
         >
-          <Input.Password placeholder="Your password" />
+          <Input.Password
+            placeholder="Your password"
+            onPressEnter={handleEmailLogin}
+          />
         </Form.Item>
         <Button
           className="primary-button"
