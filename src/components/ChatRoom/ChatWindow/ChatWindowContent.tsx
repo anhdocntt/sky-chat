@@ -85,7 +85,8 @@ export default function ChatWindowContent() {
 
   const messages: IMessage[] = useFirestore(
     collection.messages,
-    messagesCondition
+    messagesCondition,
+    1000
   );
 
   useEffect(() => {
