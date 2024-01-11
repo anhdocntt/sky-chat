@@ -105,20 +105,7 @@ export default function ChatWindowContent() {
     <div className="chat-window-content">
       <div className="chat-window-messages">
         {messages.map((message) => {
-          return (
-            <Message
-              key={message.id}
-              uid={message.uid}
-              type={message.type}
-              fileURL={message.fileURL}
-              name={message.displayName}
-              photoURL={message.photoURL}
-              fileType={message.fileType}
-              fileName={message.fileName}
-              text={message.text}
-              createAt={message.createdAt?.seconds}
-            />
-          );
+          return <Message key={message.id} message={message} />;
         })}
         <div ref={contentRef} />
       </div>

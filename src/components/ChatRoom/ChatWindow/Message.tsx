@@ -2,20 +2,13 @@ import { Avatar, Typography } from "antd";
 import { formatRelative } from "date-fns";
 import { useContext, useMemo } from "react";
 import { AuthContext } from "../../../Context/AuthProvider";
-import "./Message.css";
 import { messageType } from "../../../enums/messgaeType";
+import { Message as IMessage } from "../../../interfaces/Message";
 import FilePreview from "../../FileReview/FileReview";
+import "./Message.css";
 
 type MessageParams = {
-  uid?: string;
-  type: messageType;
-  fileURL?: string;
-  text: string;
-  name?: string | null;
-  photoURL?: string | null;
-  fileType?: string;
-  fileName?: string;
-  createAt?: number;
+  message: IMessage;
 };
 
 export default function Message(props: MessageParams) {
@@ -37,30 +30,34 @@ export default function Message(props: MessageParams) {
   };
 
   const isCurrentUser = useMemo(() => {
-    return uid === props.uid;
-  }, [props.uid, uid]);
+    return uid === props.message.uid;
+  }, [props.message.uid, uid]);
 
   return (
     <div className={`message-wrapper${isCurrentUser ? " current-user" : ""}`}>
       <div className="message-info">
-        <Avatar src={props.photoURL}>
-          {props.photoURL ? "" : props.name?.charAt(0).toUpperCase()}
+        <Avatar src={props.message.photoURL}>
+          {props.message.photoURL
+            ? ""
+            : props.message.displayName?.charAt(0).toUpperCase()}
         </Avatar>
-        <Typography.Text className="label-text">{props.name}</Typography.Text>
+        <Typography.Text className="label-text">
+          {props.message.displayName}
+        </Typography.Text>
         <Typography.Text className="time-text">
-          {formatDate(props.createAt)}
+          {formatDate(props.message.createdAt?.seconds)}
         </Typography.Text>
       </div>
-      {props.type === messageType.text ? (
+      {props.message.type === messageType.text ? (
         <div className="message-text">
-          <Typography.Text>{props.text}</Typography.Text>
+          <Typography.Text>{props.message.text}</Typography.Text>
         </div>
       ) : (
         <div className="message-text message-file">
           <FilePreview
-            fileURL={props.fileURL}
-            fileType={props.fileType}
-            fileName={props.fileName}
+            fileURL={props.message.fileURL}
+            fileType={props.message.fileType}
+            fileName={props.message.fileName}
           />
         </div>
       )}

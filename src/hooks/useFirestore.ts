@@ -5,7 +5,7 @@ import { Condition } from "../interfaces/Condition";
 
 export default function useFirestore(
   collection: collection,
-  condition: Condition,
+  condition?: Condition,
   limit: number = 100
 ) {
   const [docs, setDocs] = useState<any[]>([]);
@@ -34,19 +34,26 @@ export default function useFirestore(
       const newDocs = snapshot
         .docChanges()
         .map((change) => {
-          const newDoc = {
-            id: change.doc.id,
-            ...change.doc.data(),
-          };
+          if (change.type === "added" || change.type === "modified") {
+            const newDoc = {
+              id: change.doc.id,
+              ...change.doc.data(),
+            };
 
-          const existingDocIndex = curDocs.findIndex(
-            (doc) => doc.id === newDoc.id
-          );
+            const existingDocIndex = curDocs.findIndex(
+              (doc) => doc.id === newDoc.id
+            );
 
-          if (existingDocIndex === -1) {
-            return newDoc;
-          } else {
-            curDocs[existingDocIndex] = newDoc;
+            if (existingDocIndex === -1) {
+              return newDoc;
+            } else {
+              curDocs[existingDocIndex] = newDoc;
+            }
+
+            return null;
+          }
+
+          if (change.type === "removed") {
           }
 
           return null;
