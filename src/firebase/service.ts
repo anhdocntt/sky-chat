@@ -1,7 +1,8 @@
 import firebase from "firebase/app";
 import { db } from "./config";
+import { collection } from "../enums/collection";
 
-export const addDocument = (collection: string, data: any) => {
+export const addDocument = (collection: collection, data: any) => {
   const query = db.collection(collection);
 
   query.add({
